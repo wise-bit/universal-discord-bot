@@ -1,6 +1,7 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 // var auth = require('./auth.json'); // for offline access
+let price = require('crypto-price')
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -47,6 +48,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'testInput': // start splicing members until you run out, where you send error
                 if (args.length < 2) messageFunction('You must tag exactly two users to start game...');
                 else messageFunction('New game between ' + args[0] + ' and ' + args[1] + ' started!');
+                args = args.splice(1);
+                // shed spaces from both sides
+                // check if both @s are valid and instantiate game
+            break;
+
+            case 'crypto': // start splicing members until you run out, where you send error
+                if (args.length < 2) messageFunction('Format: !crypto base crypto');
+                else messageFunction('Current price is: ' + cryptoPrice(args[0], args[1]));
+                args = args.splice(2);
                 // shed spaces from both sides
                 // check if both @s are valid and instantiate game
             break;
@@ -75,4 +85,13 @@ function messageFunction(messageString) {
         to: currChannelID,
         message: messageString
     });
+}
+
+// delete this, only added for fun --> potential betting feature?
+function cryptoPrice(base, crypto) {
+    price.getCryptoPrice(base, crypto).then(obj => { // Base for ex - USD, Crypto for ex - ETH 
+        console.log(obj.price)
+    }).catch(err => {
+        console.log(err)
+    })
 }
