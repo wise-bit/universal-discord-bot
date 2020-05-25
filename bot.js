@@ -48,17 +48,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'testInput': // start splicing members until you run out, where you send error
                 if (args.length < 2) messageFunction('You must tag exactly two users to start game...');
                 else messageFunction('New game between ' + args[0] + ' and ' + args[1] + ' started!');
-                args = args.splice(1);
+                args = args.splice(2);
                 // shed spaces from both sides
                 // check if both @s are valid and instantiate game
             break;
 
             case 'crypto': // start splicing members until you run out, where you send error
                 if (args.length < 2) messageFunction('Format: !crypto base crypto');
-                else messageFunction('Current price is: ' + cryptoPrice(args[0], args[1]));
+                else cryptoPrice(args[0], args[1]);
                 args = args.splice(2);
-                // shed spaces from both sides
-                // check if both @s are valid and instantiate game
             break;
 
             default:
@@ -90,7 +88,7 @@ function messageFunction(messageString) {
 // delete this, only added for fun --> potential betting feature?
 function cryptoPrice(base, crypto) {
     price.getCryptoPrice(base, crypto).then(obj => { // Base for ex - USD, Crypto for ex - ETH 
-        return obj.price
+        messageFunction('Current price is: ' + obj.price)
     }).catch(err => {
         console.log(err)
     })
