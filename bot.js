@@ -90,7 +90,7 @@ function messageFunction(messageString) {
 // delete this, only added for fun --> potential betting feature?
 function cryptoPrice(base, crypto) {
     price.getCryptoPrice(base, crypto).then(obj => { // Base for ex - USD, Crypto for ex - ETH 
-        console.log(obj.price)
+        return obj.price
     }).catch(err => {
         console.log(err)
     })
