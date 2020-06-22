@@ -77,13 +77,14 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
       case "changeinterval":
         if (args.length < 1)
-          messageFunction("Format: !changetimer interval(in seconds)");
+          messageFunction("Switching to default time (1 hr)");
+        timerInterval = defaultTimerInterval;
         if (!isNaN(args[0])) {
           timerInterval = parseFloat(args[0]) * 1000;
-          clearInterval(intervalId);
-          startInterval(timerInterval);
-          console.log("interval changed to " + args[0] + " seconds");
+          messageFunction("Switching to " + args[0] + "seconds");
         }
+        clearInterval(intervalId);
+        startInterval(timerInterval);
         args = args.splice(1);
         break;
 
