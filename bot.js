@@ -60,9 +60,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         } else {
           if (args[0] === "diary") {
             bot.sendMessage({
-                to: channelID,
-                message: "Possible commands:\nbinddiary\nchangeinterval\ntogglediary",
-              });
+              to: channelID,
+              message:
+                "Possible commands:\nbinddiary\nchangeinterval\ntogglediary",
+            });
           } else {
             bot.sendMessage({
               to: channelID,
@@ -106,8 +107,14 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
       case "togglediary":
         timerPaused = !timerPaused;
-        if (timerPaused) messageFunction("Diary is now paused");
-        else messageFunction("Diary is now unpaused");
+        if (timerPaused) {
+            messageFunction("Diary is now paused");
+            intervalId = undefined;
+        }
+        else {
+            messageFunction("Diary is now unpaused");
+            startInterval(timerInterval);
+        }
         break;
 
       case "binddiary":
@@ -149,8 +156,12 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
-      console.log(timerPaused);
-    if (boundDiaryChannel && !timerPaused) {
+    if (timerPaused) {
+      bot.sendMessage({
+        to: channelID,
+        message: "Bot currently paused.",
+      });
+    } else if (boundDiaryChannel && _interval) {
       var timeStamp =
         currentTime.getHours() +
         ":" +
