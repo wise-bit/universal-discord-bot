@@ -79,7 +79,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
           timerInterval = parseFloat(args[0]) * 1000;
           clearInterval(intervalId);
           startInterval(timerInterval, message);
-          console.log('interval changed to ' + args[0]);
+          console.log("interval changed to " + args[0]);
         }
         args = args.splice(1);
         break;
@@ -118,12 +118,13 @@ function startInterval(_interval, message) {
   // Store the id of the interval so we can clear it later
   intervalId = setInterval(function () {
     bot.sendMessage({
-    to: "diary",
-    message:
+      to: "diary",
+      message:
         "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
-    })
-    .catch ((err) => {
-        console.log('either diary channel doesn\'t exist, or somehting else went wrong');
     });
-  }, _interval);
+  }, _interval).catch((err) => {
+    console.log(
+      "either diary channel doesn't exist, or somehting else went wrong"
+    );
+  });
 }
