@@ -131,9 +131,18 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
-      console.log(boundDiaryChannel);
     if (boundDiaryChannel && !timerPaused) {
-      var timeStamp = currentTime.getHours() + ":" + currentTime.getMinutes() + " of " + day + "/" + month + "/" + year;
+      var timeStamp =
+        currentTime.getHours() +
+        ":" +
+        currentTime.getMinutes() +
+        " of " +
+        currentTime.getDate() +
+        "/" +
+        currentTime.getMonth() +
+        "/" +
+        currentTime.getFullYear();
+
       intervalId = setInterval(function () {
         bot.sendMessage({
           to: boundDiaryChannel,
