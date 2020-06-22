@@ -11,9 +11,12 @@ logger.add(new logger.transports.Console(), {
 logger.level = "debug";
 
 // Functional variables
+var currentTime = new Date();
 const defaultTimerInterval = 3600 * 1000; // One hour
 var timerInterval;
 var intervalId;
+var boundDiaryChannel;
+var timerPaused = false;
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
@@ -84,6 +87,16 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         args = args.splice(1);
         break;
 
+      case "togglediary":
+        timerPaused = !timerPaused;
+        if (timerPaused) messageFunction("Diary is now paused");
+        else messageFunction("Diary is now unpaused");
+
+      case "binddiary":
+        boundDiaryChannel = channelID;
+        break;
+
+      ////////////////
       default:
         bot.sendMessage({
           to: channelID,
@@ -117,14 +130,15 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
-    intervalId = setInterval(function () {
-      console.log("sending diary message");
-      bot.sendMessage({
-        to: "diary",
-        message:
-          "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
-      });
-    }, _interval);
+    if (boundDiaryChannel && !timerPaused) {
+      var timeStamp = currentTime.getHours() + ":" + currentTime.getMinutes() + " of " + day + "/" + month + "/" + year;
+      intervalId = setInterval(function () {
+        bot.sendMessage({
+          to: boundDiaryChannel,
+          message: "What have you achieved in the past hour as of " + timeStamp,
+        });
+      }, _interval);
+    }
   } catch (err) {
     console.log(
       "either diary channel doesn't exist, or somehting else went wrong"
