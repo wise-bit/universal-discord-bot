@@ -16,7 +16,7 @@ const defaultTimerInterval = 3600 * 1000; // One hour
 var timerInterval;
 var intervalId;
 var boundDiaryChannel;
-var timerPaused = false;
+var timerPaused;
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
@@ -28,7 +28,7 @@ bot.on("ready", function (evt) {
   logger.info("Connected");
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
-  startInterval(defaultTimerInterval);
+  timerPaused = false;
 });
 
 var currChannelID = null; // this changes as soon as it is called from another channel
@@ -149,6 +149,7 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
+      console.log(timerPaused);
     if (boundDiaryChannel && !timerPaused) {
       var timeStamp =
         currentTime.getHours() +
