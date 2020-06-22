@@ -11,7 +11,7 @@ logger.add(new logger.transports.Console(), {
 logger.level = "debug";
 
 // Functional variables
-const defaultTimerInterval = 3600;
+const defaultTimerInterval = 3600 * 1000; // One hour
 var timerInterval;
 var intervalId;
 
@@ -72,13 +72,14 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         args = args.splice(2);
         break;
 
-      case "changetimer":
+      case "changeinterval":
         if (args.length < 1)
-          messageFunction("Format: !changetimer interval(in seconds");
+          messageFunction("Format: !changetimer interval(in seconds)");
         if (!isNaN(args[0])) {
           timerInterval = parseFloat(args[0]) * 1000;
           clearInterval(intervalId);
           startInterval(timerInterval, message);
+          console.log('interval changed to ' + args[0]);
         }
         args = args.splice(1);
         break;
@@ -116,14 +117,13 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval, message) {
   // Store the id of the interval so we can clear it later
   intervalId = setInterval(function () {
-    try {
-      bot.sendMessage({
-        to: "diary",
-        message:
-          "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
-      });
-    } catch (e) {
-      console.log('either diary channel doesn\'t exist, or somehting else went wrong');
-    }
+    bot.sendMessage({
+    to: "diary",
+    message:
+        "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
+    })
+    .catch ((err) => {
+        console.log('either diary channel doesn\'t exist, or somehting else went wrong');
+    });
   }, _interval);
 }
