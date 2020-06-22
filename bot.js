@@ -180,7 +180,7 @@ function startInterval(_interval) {
       }, _interval);
     } else {
       bot.sendMessage({
-        to: boundDiaryChannel,
+        to: currChannelID,
         message: "No bound channel for diary",
       });
     }
