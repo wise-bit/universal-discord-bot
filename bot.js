@@ -108,6 +108,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         timerPaused = !timerPaused;
         if (timerPaused) messageFunction("Diary is now paused");
         else messageFunction("Diary is now unpaused");
+        break;
 
       case "binddiary":
         boundDiaryChannel = channelID;
