@@ -116,14 +116,14 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval, message) {
   // Store the id of the interval so we can clear it later
   intervalId = setInterval(function () {
-    if (
-      message.guild.channels.cache.find((c) => c.name.toLowerCase() === "diary")
-    ) {
+    try {
       bot.sendMessage({
         to: "diary",
         message:
           "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
       });
+    } catch (e) {
+      console.log('either diary channel doesn\'t exist, or somehting else went wrong');
     }
   }, _interval);
 }
