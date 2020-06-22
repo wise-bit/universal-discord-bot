@@ -1,13 +1,13 @@
 {
-    "name": "royal-game-of-ur-bot",
+    "name": "pi-bot",
     "version": "1.0.0",
-    "description": "Royal Game of Ur",
+    "description": "Pi Bot",
     "main": "bot.js",
     "author": "Satrajit",
     "dependencies": {
+        "crypto-price": "^0.0.6",
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "discord.js": "^12.2.0",
-        "winston": "^3.2.1",
-        "crypto-price": "^0.0.6"
+        "winston": "^3.2.1"
     }
 }
