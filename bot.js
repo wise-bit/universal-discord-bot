@@ -157,7 +157,7 @@ function startInterval(_interval) {
   try {
     if (timerPaused) {
       bot.sendMessage({
-        to: channelID,
+        to: currChannelID,
         message: "Bot currently paused.",
       });
     } else if (boundDiaryChannel && _interval) {
