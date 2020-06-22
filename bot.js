@@ -97,7 +97,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         timerInterval = defaultTimerInterval;
         if (!isNaN(args[0])) {
           timerInterval = parseFloat(args[0]) * 1000;
-          messageFunction("Switching to " + args[0] + "seconds");
+          messageFunction("Switching to " + args[0] + " seconds");
         }
         clearInterval(intervalId);
         startInterval(timerInterval);
