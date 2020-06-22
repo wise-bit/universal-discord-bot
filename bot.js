@@ -116,15 +116,17 @@ function cryptoPrice(base, crypto) {
 
 function startInterval(_interval, message) {
   // Store the id of the interval so we can clear it later
-  intervalId = setInterval(function () {
-    bot.sendMessage({
-      to: "diary",
-      message:
-        "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
-    });
-  }, _interval).catch((err) => {
+  try {
+    intervalId = setInterval(function () {
+      bot.sendMessage({
+        to: "diary",
+        message:
+          "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
+      });
+    }, _interval);
+  } catch (err) {
     console.log(
       "either diary channel doesn't exist, or somehting else went wrong"
     );
-  });
+  }
 }
