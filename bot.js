@@ -49,12 +49,28 @@ bot.on("message", function (user, userID, channelID, message, evt) {
       case "play":
         messageFunction("reevaluating purpose in life");
         break;
+
       case "help":
-        bot.sendMessage({
-          to: channelID,
-          message:
-            "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
-        });
+        if (args.length < 1) {
+          bot.sendMessage({
+            to: channelID,
+            message:
+              "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
+          });
+        } else {
+          if (args[0] === "diary") {
+            bot.sendMessage({
+                to: channelID,
+                message: "Possible commands:\nbinddiary\nchangeinterval\ntogglediary",
+              });
+          } else {
+            bot.sendMessage({
+              to: channelID,
+              message: "Unknown help parameter",
+            });
+          }
+        }
+        args = args.splice(1);
         break;
       // Just add any case commands if you want to..
       case "testInput": // start splicing members until you run out, where you send error
