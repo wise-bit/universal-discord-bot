@@ -94,6 +94,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
       case "binddiary":
         boundDiaryChannel = channelID;
+        messageFunction("Diary assigned to this channel");
         break;
 
       ////////////////
@@ -130,6 +131,7 @@ function cryptoPrice(base, crypto) {
 function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
+      console.log(boundDiaryChannel);
     if (boundDiaryChannel && !timerPaused) {
       var timeStamp = currentTime.getHours() + ":" + currentTime.getMinutes() + " of " + day + "/" + month + "/" + year;
       intervalId = setInterval(function () {
