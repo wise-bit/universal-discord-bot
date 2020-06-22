@@ -11,7 +11,6 @@ logger.add(new logger.transports.Console(), {
 logger.level = "debug";
 
 // Functional variables
-var currentTime = new Date();
 const defaultTimerInterval = 3600 * 1000; // One hour
 var timerInterval;
 var intervalId;
@@ -161,6 +160,7 @@ function startInterval(_interval) {
         message: "Bot currently paused.",
       });
     } else if (boundDiaryChannel && _interval) {
+      var currentTime = new Date();
       var timeStamp =
         currentTime.getHours() +
         ":" +
