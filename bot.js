@@ -108,12 +108,11 @@ bot.on("message", function (user, userID, channelID, message, evt) {
       case "togglediary":
         timerPaused = !timerPaused;
         if (timerPaused) {
-            messageFunction("Diary is now paused");
-            intervalId = undefined;
-        }
-        else {
-            messageFunction("Diary is now unpaused");
-            startInterval(timerInterval);
+          messageFunction("Diary is now paused");
+          clearInterval(intervalId);
+        } else {
+          messageFunction("Diary is now unpaused");
+          startInterval(timerInterval);
         }
         break;
 
@@ -179,6 +178,11 @@ function startInterval(_interval) {
           message: "What have you achieved in the past hour as of " + timeStamp,
         });
       }, _interval);
+    } else {
+      bot.sendMessage({
+        to: boundDiaryChannel,
+        message: "No bound channel for diary",
+      });
     }
   } catch (err) {
     console.log(
