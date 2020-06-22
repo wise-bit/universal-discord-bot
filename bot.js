@@ -78,8 +78,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         if (!isNaN(args[0])) {
           timerInterval = parseFloat(args[0]) * 1000;
           clearInterval(intervalId);
-          startInterval(timerInterval, message);
-          console.log("interval changed to " + args[0]);
+          startInterval(timerInterval);
+          console.log("interval changed to " + args[0] + " seconds");
         }
         args = args.splice(1);
         break;
@@ -114,10 +114,11 @@ function cryptoPrice(base, crypto) {
     });
 }
 
-function startInterval(_interval, message) {
+function startInterval(_interval) {
   // Store the id of the interval so we can clear it later
   try {
     intervalId = setInterval(function () {
+      console.log("sending diary message");
       bot.sendMessage({
         to: "diary",
         message:
