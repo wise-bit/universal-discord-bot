@@ -78,7 +78,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         if (!isNaN(args[0])) {
           timerInterval = parseFloat(args[0]) * 1000;
           clearInterval(intervalId);
-          startInterval(timerInterval);
+          startInterval(timerInterval, message);
         }
         args = args.splice(1);
         break;
@@ -113,7 +113,7 @@ function cryptoPrice(base, crypto) {
     });
 }
 
-function startInterval(_interval) {
+function startInterval(_interval, message) {
   // Store the id of the interval so we can clear it later
   intervalId = setInterval(function () {
     if (
