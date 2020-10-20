@@ -36,7 +36,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
   currChannelID = channelID;
   // Our bot needs to know if it will execute a command
   // It will listen for messages that will start with `!`
-  if (message.substring(0, 1) == "!") {
+  if (message.substring(0, 2) == "..") {
     var args = message.substring(1).split(" ");
     var cmd = args[0];
 
@@ -57,7 +57,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
               "Roses are red, violets are blue\nI'm dysfunctional, and so are you",
           });
         } else {
-          if (args[0] === "diary") {
+          if (args[0] === "diary-disabled34657362") {
             bot.sendMessage({
               to: channelID,
               message:
@@ -73,7 +73,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         args = args.splice(1);
         break;
       // Just add any case commands if you want to..
-      case "testInput": // start splicing members until you run out, where you send error
+      case "testInput-disabled34657362": // start splicing members until you run out, where you send error
         if (args.length < 2)
           messageFunction("You must tag exactly two users to start game...");
         else
@@ -91,7 +91,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         args = args.splice(2);
         break;
 
-      case "changeinterval":
+      case "changeinterval-disabled34657362":
         if (args.length < 1)
           messageFunction("Switching to default time (1 hr)");
         timerInterval = defaultTimerInterval;
@@ -104,7 +104,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         args = args.splice(1);
         break;
 
-      case "togglediary":
+      case "togglediary-disabled34657362":
         timerPaused = !timerPaused;
         if (timerPaused) {
           messageFunction("Diary is now paused");
@@ -115,17 +115,27 @@ bot.on("message", function (user, userID, channelID, message, evt) {
         }
         break;
 
-      case "binddiary":
+      case "binddiary-disabled34657362":
         boundDiaryChannel = channelID;
         messageFunction("Diary assigned to this channel");
+        break;
+      
+      case "admin":
+        boundDiaryChannel = channelID;
+        messageFunction("Required: PASSKEY");
+        break;
+
+      /// Random new features
+
+      case "asticker":
+        boundDiaryChannel = channelID;
+        messageFunction("Currenly being implemented..."); // Test on native JS first
         break;
 
       ////////////////
       default:
-        bot.sendMessage({
-          to: channelID,
-          message: "Command not found! Type !help for more info",
-        });
+        boundDiaryChannel = channelID;
+        messageFunction("Command not found! Type !help for more info");
         break;
     }
   }
